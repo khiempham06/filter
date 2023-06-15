@@ -1,4 +1,3 @@
-# tool lọc điểm thi vào 10 chuyên dùng định dạng như file score.xlsx
 # Made by: @anonymous - from 12IT
 
 import xlwings as xw
