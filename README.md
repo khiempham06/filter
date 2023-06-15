@@ -9,4 +9,4 @@
 - Đảm bảo file dữ liệu điểm thi giống format score.xlsx
 - Edit các biến setting trong main.py nếu cần
 - "python main.py" để bắt đầu xếp
-@copyright by @khiempham06
+# copyright by @khiempham06
