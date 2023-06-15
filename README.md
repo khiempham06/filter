@@ -1,7 +1,7 @@
 # Description
 - Tool xếp học sinh vào các lớp chuyên dựa vào hình thức xét tuyển https://chuyenthanglongdalat.edu.vn/thong-bao-tuyen-sinh-vao-lop-10-nam-hoc-2023-2024.html
-- score.xlsx: example input dữ liệu điểm thi năm 2023-2024
-- result.xlsx: example output
+- score.xlsx: sample input dữ liệu điểm thi năm 2023-2024
+- result.xlsx: sample output
 # Library 
 - xlwings
 # Usage
