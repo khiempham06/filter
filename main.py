@@ -1,10 +1,8 @@
-# Made by: @anonymous - from 12IT
-
 import xlwings as xw
 from xlwings.constants import LineStyle
 import os
 
-# file điểm chung, sheet, khoảng
+# file dữ liệu điểm, sheet, khoảng
 FILE = "score.xlsx"
 SHEET = "Sheet1"
 FR_TO = "A4:N668"
