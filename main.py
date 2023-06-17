@@ -1,8 +1,11 @@
+# tool lọc điểm thi vào 10 chuyên dùng định dạng như file score.xlsx
+# Made by: @anonymous - from 12IT
+
 import xlwings as xw
 from xlwings.constants import LineStyle
 import os
 
-# file dữ liệu điểm, sheet, khoảng
+# file điểm chung, sheet, khoảng
 FILE = "score.xlsx"
 SHEET = "Sheet1"
 FR_TO = "A4:N668"
@@ -97,21 +100,21 @@ def xep(nv1, nv2, nv):
     for i in range(len(nv2)):
         if len(result) < hs_ and nv2[i] not in nv:
           result.append(nv2[i])
-        else:
+        if len(result) == hs_:
             break
     return result
          
 def solve(data):
-    tin_nv1 = sorted(get(1, data, txt_tin_), key=lambda x: x[sum1_s], reverse=True)
-    toan_nv1 = sorted(get(1, data, txt_toan_), key=lambda x: x[sum1_s], reverse=True)
-    anh_nv1 = sorted(get(1, data, txt_anh_), key=lambda x: x[sum1_s], reverse=True)
-    van_nv1 = sorted(get(1, data, txt_van_), key=lambda x: x[sum1_s], reverse=True)
-    su_nv1 = sorted(get(1, data, txt_su_), key=lambda x: x[sum1_s], reverse=True)
-    dia_nv1 = sorted(get(1, data, txt_dia_), key=lambda x: x[sum1_s], reverse=True)
-    sinh_nv1 = sorted(get(1, data, txt_sinh_), key=lambda x: x[sum1_s], reverse=True)
-    phap_nv1 = sorted(get(1, data, txt_phap_), key=lambda x: x[sum1_s], reverse=True)
-    li_nv1 = sorted(get(1, data, txt_li_), key=lambda x: x[sum1_s], reverse=True)
-    hoa_nv1 = sorted(get(1, data, txt_hoa_), key=lambda x: x[sum1_s], reverse=True)
+    tin_nv1 = xep(sorted(get(1, data, txt_tin_), key=lambda x: x[sum1_s], reverse=True), [], [])
+    toan_nv1 = xep(sorted(get(1, data, txt_toan_), key=lambda x: x[sum1_s], reverse=True), [], [])
+    anh_nv1 = xep(sorted(get(1, data, txt_anh_), key=lambda x: x[sum1_s], reverse=True), [], [])
+    van_nv1 = xep(sorted(get(1, data, txt_van_), key=lambda x: x[sum1_s], reverse=True), [], [])
+    su_nv1 = xep(sorted(get(1, data, txt_su_), key=lambda x: x[sum1_s], reverse=True), [], [])
+    dia_nv1 = xep(sorted(get(1, data, txt_dia_), key=lambda x: x[sum1_s], reverse=True), [], [])
+    sinh_nv1 = xep(sorted(get(1, data, txt_sinh_), key=lambda x: x[sum1_s], reverse=True), [], [])
+    phap_nv1 = xep(sorted(get(1, data, txt_phap_), key=lambda x: x[sum1_s], reverse=True), [], [])
+    li_nv1 = xep(sorted(get(1, data, txt_li_), key=lambda x: x[sum1_s], reverse=True), [], [])
+    hoa_nv1 = xep(sorted(get(1, data, txt_hoa_), key=lambda x: x[sum1_s], reverse=True), [], [])
     
     nv1 = tin_nv1 + toan_nv1 + anh_nv1 + van_nv1 + su_nv1 + dia_nv1 + sinh_nv1 + phap_nv1 + li_nv1 + hoa_nv1
     
