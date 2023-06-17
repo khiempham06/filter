@@ -1,6 +1,3 @@
-# tool lọc điểm thi vào 10 chuyên dùng định dạng như file score.xlsx
-# Made by: @anonymous - from 12IT
-
 import xlwings as xw
 from xlwings.constants import LineStyle
 import os
@@ -56,8 +53,9 @@ mon_s2 = 10
 #cột của điểm tổng nv1 và nv2
 sum1_s = 12
 sum2_s = 13
+sum3_s = 14
 
-headers = ["SBD", "Họ và tên", "giới tính", "Học sinh trường", "toán", "văn", "anh", "nguyện vọng 1", "điểm", "nguyện vọng 2", "điểm", "tổng nv1", "tổng nv2"]
+headers = ["SBD", "Họ và tên", "giới tính", "Học sinh trường", "toán", "văn", "anh", "nguyện vọng 1", "điểm", "nguyện vọng 2", "điểm", "tổng nv1", "tổng nv2", "tổng môn chuyên"]
 
 def num(var):
     return isinstance(var, (int, float))
@@ -103,7 +101,21 @@ def xep(nv1, nv2, nv):
         if len(result) == hs_:
             break
     return result
-         
+
+def checknv(data, mon):
+    if data[mon_s1] == mon:
+        return 1
+    if data[mon_s2] == mon:
+        return 2
+  
+def add(data, mon):
+    for i in range(len(data)):
+        if checknv(data[i], mon) == 1:
+           data[i].append(data[i][sum1_s])
+        else:
+            data[i].append(data[i][sum2_s]) 
+    return data
+             
 def solve(data):
     tin_nv1 = xep(sorted(get(1, data, txt_tin_), key=lambda x: x[sum1_s], reverse=True), [], [])
     toan_nv1 = xep(sorted(get(1, data, txt_toan_), key=lambda x: x[sum1_s], reverse=True), [], [])
@@ -129,26 +141,25 @@ def solve(data):
     li_nv2 = sorted(get(2, data, txt_li_), key=lambda x: x[sum2_s], reverse=True)
     hoa_nv2 = sorted(get(2, data, txt_hoa_), key=lambda x: x[sum2_s], reverse=True)
     
-    tin = xep(tin_nv1, tin_nv2, nv1)
-    toan = xep(toan_nv1, toan_nv2, nv1)
-    anh = xep(anh_nv1, anh_nv2, nv1)
-    van = xep(van_nv1, van_nv2, nv1)
-    su = xep(su_nv1, su_nv2, nv1)
-    dia = xep(dia_nv1, dia_nv2, nv1)
-    sinh = xep(sinh_nv1, sinh_nv2, nv1)	
-    phap = xep(phap_nv1, phap_nv2, nv1)
-    li = xep(li_nv1, li_nv2, nv1)
-    hoa = xep(hoa_nv1, hoa_nv2, nv1)
+    tin = sorted(add(xep(tin_nv1, tin_nv2, nv1), txt_tin_), key=lambda x: x[sum3_s], reverse=True)
+    toan = sorted(add(xep(toan_nv1, toan_nv2, nv1), txt_toan_), key=lambda x: x[sum3_s], reverse=True)
+    anh = sorted(add(xep(anh_nv1, anh_nv2, nv1), txt_anh_), key=lambda x: x[sum3_s], reverse=True)
+    van = sorted(add(xep(van_nv1, van_nv2, nv1), txt_van_), key=lambda x: x[sum3_s], reverse=True)
+    su = sorted(add(xep(su_nv1, su_nv2, nv1), txt_su_), key=lambda x: x[sum3_s], reverse=True)
+    dia = sorted(add(xep(dia_nv1, dia_nv2, nv1), txt_dia_), key=lambda x: x[sum3_s], reverse=True)
+    sinh = sorted(add(xep(sinh_nv1, sinh_nv2, nv1), txt_sinh_), key=lambda x: x[sum3_s], reverse=True)
+    phap = sorted(add(xep(phap_nv1, phap_nv2, nv1), txt_phap_), key=lambda x: x[sum3_s], reverse=True)
+    li = sorted(add(xep(li_nv1, li_nv2, nv1), txt_li_), key=lambda x: x[sum3_s], reverse=True)
+    hoa = sorted(add(xep(hoa_nv1, hoa_nv2, nv1), txt_hoa_), key=lambda x: x[sum3_s], reverse=True)
     return tin, toan, anh, van, su, dia, sinh, phap, li, hoa
 
 def solve_p(phap, xet_anh):
-    res = len(phap)
     anh = sorted(get(1, data, txt_anh_), key=lambda x: x[sum1_s], reverse=True)
     predict = []
     for i in range(len(anh)):
-        if res < hs_ and toi_thieu_p(anh[i][toan_s], anh[i][anh_s], anh[i][van_s], anh[i][chuyen_s1], anh[i][sum1_s]) and anh[i] not in xet_anh:
+        if toi_thieu_p(anh[i][toan_s], anh[i][anh_s], anh[i][van_s], anh[i][chuyen_s1], anh[i][sum1_s]) and anh[i] not in xet_anh and anh[i] not in phap :
             predict.append(anh[i])
-            res =+ 1
+    predict = sorted(add(predict, txt_anh_), key=lambda x: x[sum3_s], reverse=True)
     return predict
 
 def write(file, name_s, data):
